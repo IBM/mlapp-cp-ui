@@ -40,9 +40,9 @@ const global_config = {
         "name": clientName,
         "app_name": appName,
         "app_abbr": clientAbv,
-        "version": "2.0.5",
+        "version": "0.1.0",
         "build": build, // build of this client instance
-        "starter_build_version": "1.3.4", // starter pack version
+        "starter_build_version": "0.1.0", // starter pack version
         "domain": domain,
         "market": defaultMarket,
         "language": language,
