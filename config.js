@@ -2,24 +2,23 @@
 /* eslint-disable */
 // Please customize the following attributes for your project
 // Versioning
-var build = "1.1.4"; // should be updated over time by the developers as they perform releases. We use IBM's standard versioning schema. For example, 18.2.5.1 indicates major release 5, minor release 1 in 2nd Quarter 2018.
+var build = "0.1.0"; 
 // Basic information
-var clientName = "RAD-ML JS"; // readable client name
-var appName = "RAD-ML Toolbox";
-var clientAbv = "rad-ml-toolbox"; // abbreviated client name. All lower cse letters with dashes if needed
+var clientName = "MLApp Control Panel - UI"; // readable client name
+var appName = "MLApp Control Panel - UI";
+var clientAbv = "mlapp-cp-ui"; // abbreviated client name. All lower cse letters with dashes if needed
 var defaultMarket = "US"; // iso_3166_alpha3 code of default market. Must be configured in markets table
 var language = "en"; // language configuration of the app. The language must be supported with dictionaries. Right to left languages currently not supported
 var defaultLanguage = "en"; // fallback language of the selected language above is not supported
-var supportedLanguages = ["en", "es", "jp"]; // supported languages. User can switch between these languages
+var supportedLanguages = ["en"]; // supported languages. User can switch between these languages
 var locale = "en-US"; // application locale, which controls currency and datetime formatting
-var domain = "https://radmldemo.eu-gb.containers.appdomain.cloud";
+var domain = "";
 // Default admin
 // This person will automatically be added as a superadmin user and will receive access request emails
 var defaultAdmin = {
-    firstName: "Tomer", 
-    lastName: "Galula",
-    email: "tomer.galula@ibm.com",
-    authUrl: domain + "/en/admin/users/read?userIui="
+    firstName: "MLApp", 
+    lastName: "CP",
+    email: "mlapp@cp"
 }
 
 String.prototype.parseProp = function () {	
