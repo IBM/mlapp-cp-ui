@@ -13,7 +13,7 @@
               <v-card-text>
                 <div style="width: 100%; text-align: center; padding: 5px 0px;">
                   <img v-bind:src="getLogo()" class="text-xs-right" style="height: 50px;" />
-                  <div style="width: 100%; font-size: 18px; padding: 15px 0px;">Machine Learning Control Panel</div>
+                  <div style="width: 100%; font-size: 18px; padding: 15px 0px;">MLApp Control Panel</div>
                 </div>
                 <v-form>
                   <v-text-field v-model="login" name="login" label="Email" type="text"></v-text-field>

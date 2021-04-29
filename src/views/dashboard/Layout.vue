@@ -12,7 +12,7 @@
     <v-app-bar app clipped-left dark color="indigo">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <img src="../../assets/ibm_logo_white.png" height="30" class="text-xs-right" style="padding-right: 15px; padding-left: 5px; width: 100px;" />
-      <v-toolbar-title>RAD-ML Machine Learning Control Panel</v-toolbar-title>
+      <v-toolbar-title>MLApp Control Panel</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-menu offset-y>

@@ -9,7 +9,7 @@
            <div style="width: 400px;">
             <div class="lelevation-1" style="background-color:#333;padding:20px;box-sizing:border-box; border-radius: 3px; border: 1px solid #555555;">
                  <img class="client-logo text-xs-right" v-bind:src="getLogo()" style="display: block; margin: 10px auto; max-height: 50px; max-width: 300px;"/>
-                <div class="login-head" style="font-size: 20px; text-align:center;margin: 10px auto;color:#fff">Machine Learning Control Panel</div>
+                <div class="login-head" style="font-size: 20px; text-align:center;margin: 10px auto;color:#fff">MLApp Control Panel</div>
                 <div layout="column" style="text-align:center;margin: 10px auto;" layout-align="center center" class="login-container layout-align-center-center layout-column">
                     <div class="login-content" aria-hidden="false">
                         <div class="submit" aria-hidden="false">
