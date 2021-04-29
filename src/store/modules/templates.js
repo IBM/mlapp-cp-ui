@@ -96,9 +96,9 @@ export default {
       commit('updateCurrentTemplates', response.data);
       commit('updateAvailableAssetsNames', available_asset_names);
       if(available_asset_names.length > 0){
-        var asset_name = localStorage.getItem('asset_name')
-        if(asset_name && available_asset_names.indexOf(asset_name) > -1){
-          commit('updateCurrentAssetName', asset_name);
+        var asset_name_ls = localStorage.getItem('asset_name')
+        if(asset_name_ls && available_asset_names.indexOf(asset_name_ls) > -1){
+          commit('updateCurrentAssetName', asset_name_ls);
         }
         else{
           commit('updateCurrentAssetName', available_asset_names[0]);

@@ -5,19 +5,18 @@
           <v-icon class="mt-n1 pr-2">schedule</v-icon>
           Scheduler
         </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-flex xs2>
+        <v-flex xs2 style="margin-left: 20px;">
           <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
         </v-flex>
+        <v-spacer></v-spacer>
         <div class="flex-grow-1"></div>
         <v-dialog v-model="dialog" width="80%">
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on">Add new scheduled job</v-btn>
+            <v-btn v-on="on">Add a new scheduled job</v-btn>
           </template>      
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
-              <div style="position: relative;display: inline-block;border-radius: 10px;width: 20px;height: 20px;background-color: #fff;margin-left:20px;"><a target="_blank" style="position: absolute;width: 100%;text-align: center;line-height: 20px;color: rgb(0, 0, 0);text-decoration: none;" href="https://crontab.guru/">i</a></div>              
             </v-card-title>
             
             <v-card-text>
@@ -49,10 +48,40 @@
 
                   <div class="cron_container">
                     <div>
-                      <v-text-field xs2 v-model="editedItem.name" label="Name" single-line hide-details clearable></v-text-field>                  
-                      <v-text-field xs2 v-model="editedItem.schedule_conf.command" label="Command" single-line hide-details clearable></v-text-field>                      
-                      <br>
-                      <JsonEditor v-model="editedItem.config" :options="jsonOptions" :height="`350px`"></JsonEditor>                      
+                      <v-container>
+                        <v-row>
+                          <v-col cols="5">
+                            <v-text-field xs2 v-model="editedItem.name" label="Scheduler Name" hide-details clearable></v-text-field>
+                          </v-col>
+                          <v-col cols="1"></v-col>
+                        </v-row>
+                        <v-row>&nbsp;</v-row>
+                        <v-row>
+                          <v-col cols="5">
+                            <v-text-field xs2 v-model="editedItem.schedule_conf.command" label="Scheduler Cron Expression" hide-details clearable></v-text-field>                      
+                          </v-col>
+                          <v-col cols="1">
+                            <v-tooltip bottom>
+                              <template v-slot:activator="{ on }">
+                                <div style="position: relative;display: inline-block;border-radius: 10px;width: 20px;height: 20px;background-color: #fff; margin-top:5px;">
+                                  <a target="_blank" style="position: absolute;width: 100%;text-align: center;line-height: 20px;color: rgb(0, 0, 0);text-decoration: none;" href="https://crontab.guru/" v-on="on">i</a>
+                                </div>
+                              </template>
+                              <span>Cron Expression Helper</span>
+                            </v-tooltip>
+                            
+                          </v-col>
+                        </v-row>
+                        <v-row>&nbsp;</v-row>
+                        <v-row>
+                          <span style="font-size: 16px;">Scheduler Config</span>
+                        </v-row>
+                        <v-row>
+                          <JsonEditor v-model="editedItem.config" :options="jsonOptions" :height="`350px`"></JsonEditor>      
+                        </v-row>
+                      </v-container>
+                      
+                                      
 
                       <div style="margin-top:15px;">
                         <span>Triggers when model finish:</span>
@@ -175,10 +204,13 @@
     >
       <template v-slot:item="{ item }">
         <tr class="table-row">
-          <td @click="editItem(item)">{{ item.name }}</td>
-          <td @click="editItem(item)">{{ item.schedule_conf.command }}</td>   
-          <td @click="showJob(item.lastJob)" style="cursor:pointer">{{ formatDate(item.lastJob.created_at) }}</td>   
-          <td @click="deleteItem(item)"><v-icon>delete</v-icon></td>          
+          <td>{{ item.name }}</td>
+          <td>{{ item.schedule_conf.command }}</td>   
+          <td @click="showJob(item.lastJob)" style="cursor:pointer">{{ formatDate(item.lastJob && item.lastJob.created_at) }}</td>   
+          <td>
+            <v-icon @click="editItem(item)">edit</v-icon>
+            <v-icon @click="deleteItem(item)">delete</v-icon>
+          </td>          
         </tr>
       </template>
       <template v-slot:no-data>
@@ -281,7 +313,7 @@
           { text: 'Name', value: 'name', width: '25%'},
           { text: 'Cron Command', value: 'schedule_conf.command', width: '25%'},
           { text: 'Last Job', value: 'lastJob.id', width: '25%'},
-          { text: 'Delete', value: 'delete', width: '25%'},
+          { text: 'Actions', value: '', width: '25%'},
         ],
         search: '',
         editedIndex: -1,
@@ -309,7 +341,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'Create A New Scheduled Task' : 'Edit Scheduled Task'
+        return this.editedIndex === -1 ? 'Create A New Scheduled Job' : 'Edit Scheduled Job'
       },
       currentAsset(){
         return this.$store.getters['templates/getCurrentAsset'] || null;
@@ -384,7 +416,7 @@
           }
         }
         
-        this.triggers = JSON.parse(item.schedule_conf.trigger);
+        this.triggers = JSON.parse(item && item.schedule_conf && item.schedule_conf.trigger || "[]");
         
         this.dialog = true;
       },
@@ -523,6 +555,9 @@
       },
      
      formatDate (date) {  
+       if (date == null){
+         return '-'
+       }
         var d = new Date(date),
           month = '' + (d.getMonth() + 1),
           day = '' + d.getDate(),

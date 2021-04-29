@@ -13,8 +13,8 @@
         <ListTile title="Results" icon="insert_chart" url="/results"></ListTile>
         <ListTile title="Jobs" icon="featured_play_list" url="/jobs"></ListTile>
         <!-- <ListTile title="Map" icon="map" url="/map"></ListTile> -->
-        <ListTile title="Asset Summary" icon="assessment" url="/asset-summary"></ListTile>
         <ListTile title="Scheduler" icon="schedule" url="/scheduler"></ListTile>
+        <ListTile title="Asset Summary" icon="assessment" url="/asset-summary"></ListTile>
         <!-- <ListTile title="Actions" icon="build" url="/actions"></ListTile> -->
       </v-list>
     </v-navigation-drawer>
