@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radml-test-vuejs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: radml-test-vuejs
+  template:
+    metadata:
+      labels: # labels to select/identify the deployment
+        app: radml-test-vuejs 
+    spec:     # pod spec     
+      volumes:
+        - name: config-volume
+          configMap:
+            name: radml-test-vuejs-configmap        
+      containers: 
+      - name: radml-test-vuejs
+        imagePullPolicy: Always
+        image: us.icr.io/radml2/radml-test-vuejs:latest 
+        env:
+        - name: NODE_ENV
+          value: "production"
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - name: config-volume
+            mountPath: /usr/share/nginx/html/env-config.js
+            subPath: env-config.js
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: radml-test-vuejs-configmap
+data:
+  env-config.js: |
+    var env_config = (() => {
+      return {
+        "VUE_APP_BASE_URL": "http://localhost:3001",
+        "VUE_APP_FILE_STORAGE_URL": "http://127.0.0.1:9001",
+        "VUE_APP_LOGIN_REQUIRED": "true",
+        "VUE_APP_LOGIN_TYPE": "basic",
+        "FILE_STORE_BUCKETS": "imgs:mlapp-imgs,configs:mlapp-configs,logs:mlapp-logs"
+      };
+    })();   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: radml-test-vuejs
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: radml-test-vuejs
+  type: NodePort
