@@ -22,7 +22,7 @@
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <img v-bind:src="getLogo()" height="30" class="text-xs-right" style="padding-right: 15px; padding-left: 5px;" />
-      <v-toolbar-title>Machine Learning Control Panel</v-toolbar-title>
+      <v-toolbar-title>MLApp Control Panel</v-toolbar-title>
       <v-spacer></v-spacer>
       <b>Asset:&nbsp;</b>
       <v-select v-model="selected_asset_name" 
