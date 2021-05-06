@@ -10,7 +10,7 @@
         </v-flex>
         <v-spacer></v-spacer>
         <div class="flex-grow-1"></div>
-        <v-dialog v-model="dialog" width="80%">
+        <v-dialog v-model="dialog" @close="close" width="80%">
           <template v-slot:activator="{ on }">
             <v-btn v-on="on">Add a new scheduled job</v-btn>
           </template>      
@@ -372,6 +372,9 @@
       currentAsset(new_value){
         this.$store.dispatch('models/fetchTrainModelsByAssetName',new_value);
       },
+      dialog(val) {
+        val || this.close();
+      },
     },
     created () {
       this.initialize();
@@ -439,7 +442,9 @@
         this.dialog = false
         setTimeout(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
+          this.editedIndex = -1;
+          this.triggers = [];
+          this.temp_conditions = [];
         }, 300)
       },
 
