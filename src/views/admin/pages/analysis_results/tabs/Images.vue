@@ -18,11 +18,9 @@
 
 
 <script>
-import global_config from './../../../../../../config'
-
 export default {
     data: () => ({
-        img_bucket: global_config["file_store_buckets"]["imgs"],
+        img_bucket: "png",
         current_index: 0
     }),
     props: {

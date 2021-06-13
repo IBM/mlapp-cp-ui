@@ -65,7 +65,6 @@
 </style>
 
 <script>
-import global_config from './../../../../../config'
 import RawDataTab from './tabs/RawData.vue'
 import FilesTab from './tabs/Files.vue'
 import CoefficientsTab from './tabs/Coefficients.vue'
@@ -122,24 +121,19 @@ export default {
             this.currentTab = value;
         },
         fetchFiles() {            
-            this.$store.dispatch('files/queryFileStorage', this.model.model_id).then(function(){
-                
-                var configs = global_config["file_store_buckets"]["configs"];
-                var logs = global_config["file_store_buckets"]["logs"];
-                // var imgs = global_config["file_store_buckets"]["imgs"];
-                
-                if(this.files[logs] && this.files[logs].length > 0){
+            this.$store.dispatch('files/queryFileStorage', this.model.model_id).then(function(){                
+                if(this.files["logger"] && this.files["logger"].length > 0){
                     this.$store.dispatch('files/streamFile', {
-                        bucket: logs,
-                        key: this.files[logs][0]["file_name"],
+                        bucket: "logs",
+                        key: this.files["logger"][0]["file_name"],
                         callback_function: 'updateCurrentLoggerFile',
                         loading_commit: 'setLoggerLoading'
                     });
                 }
-                if(this.files[configs] && this.files[configs].length > 0){
+                if(this.files["config"] && this.files["config"].length > 0){
                     this.$store.dispatch('files/streamFile', {
-                        bucket: configs,
-                        key: this.files[configs][0]["file_name"],
+                        bucket: "configs",
+                        key: this.files["config"][0]["file_name"],
                         callback_function: 'updateCurrentConfigFile',
                         loading_commit: 'setConfigLoading'
                     });

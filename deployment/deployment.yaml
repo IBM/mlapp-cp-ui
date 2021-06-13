@@ -41,8 +41,7 @@ data:
         "VUE_APP_BASE_URL": "http://localhost:3001",
         "VUE_APP_FILE_STORAGE_URL": "http://127.0.0.1:9001",
         "VUE_APP_LOGIN_REQUIRED": "true",
-        "VUE_APP_LOGIN_TYPE": "basic",
-        "FILE_STORE_BUCKETS": "imgs:mlapp-imgs,configs:mlapp-configs,logs:mlapp-logs"
+        "VUE_APP_LOGIN_TYPE": "basic"
       };
     })();   
 ---

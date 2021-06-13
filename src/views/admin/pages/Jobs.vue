@@ -102,7 +102,6 @@
 
 <script>
 import JobData from './JobData.vue'
-import global_config from './../../../../config'
 
 export default {
   data: () => ({
@@ -252,35 +251,30 @@ export default {
       var prefix_job_id = this.current_job["id"];
       var prefix_model_id = this.current_job["data"] && ((typeof this.current_job['data'] == 'string') ? JSON.parse(this.current_job["data"])[0]["model_id"] : this.current_job["data"][0]["model_id"]);
       
-      this.$store.dispatch('files/queryFileStorage', prefix_job_id).then(function(){
-        var configs = global_config["file_store_buckets"]["configs"];
-        var logs = global_config["file_store_buckets"]["logs"];
-        
-        
-        if(this.files[configs].length > 0){
+      this.$store.dispatch('files/queryFileStorage', prefix_job_id).then(function(){        
+        if(this.files["config"] && this.files["config"].length > 0){
           this.$store.dispatch('files/streamFile', {
-            bucket: configs,
-            key: this.files[configs][0]["file_name"],
+            bucket: "configs",
+            key: this.files["config"][0]["file_name"],
             callback_function: 'updateCurrentConfigFile',
             loading_commit: 'setConfigLoading'
           });
         }
 
-        if(this.files[logs].length > 0){
+        if(this.files["logger"] && this.files["logger"].length > 0){
           this.$store.dispatch('files/streamFile', {
-            bucket: logs,
-            key: this.files[logs][0]["file_name"],
+            bucket: "logs",
+            key: this.files["logger"][0]["file_name"],
             callback_function: 'updateCurrentLoggerFile',
             loading_commit: 'setLoggerLoading'
           });
         }
         else if(prefix_model_id){
           this.$store.dispatch('files/queryFileStorage', prefix_model_id).then(function(){
-            var logs = global_config["file_store_buckets"]["logs"];
-            if(this.files[logs].length > 0){
+            if(this.files["logger"] && this.files["logger"].length > 0){
               this.$store.dispatch('files/streamFile', {
-                bucket: logs,
-                key: this.files[logs][0]["file_name"],
+                bucket: "logs",
+                key: this.files["logger"][0]["file_name"],
                 callback_function: 'updateCurrentLoggerFile',
                 loading_commit: 'setLoggerLoading'
               });

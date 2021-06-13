@@ -35,7 +35,6 @@ String.prototype.parseProp = function () {
 // Do not modify information below unless you know what you are doing!
 const global_config = {
     "deployment": env_config.VUE_APP_DEPLOYMENT || process.env.VUE_APP_DEPLOYMENT || "default",
-    "file_store_buckets": (env_config.FILE_STORE_BUCKETS || process.env.FILE_STORE_BUCKETS || "").parseProp(), 
     "app": {
         "name": clientName,
         "app_name": appName,

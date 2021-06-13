@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
-import global_config from './../../../config'
 
 Vue.use(Vuex)
 
@@ -60,7 +59,7 @@ export default {
         const response = await axios.get("/api/files/query/" + prefix);
         commit('setLoading', false);
         try{
-          if(!response.data[global_config["file_store_buckets"]["logs"]].length){
+          if(response.data["logger"] && !response.data["logger"].length){
             commit('setLoggerLoading', false);
           }
         }
@@ -68,7 +67,7 @@ export default {
           console.error(e);
         }
         try{
-          if(!response.data[global_config["file_store_buckets"]["configs"]].length){
+          if(response.data["config"] && !response.data["config"].length){
             commit('setConfigLoading', false);
           }  
         }

@@ -7,7 +7,6 @@ const env_config = (() => {
     "VUE_APP_LOGIN_TYPE": "basic",
     "VUE_APP_LOGIN_BACKGROUND": "",
     "VUE_APP_LOGO": "",
-    "VUE_APP_DEPLOYMENT": "default",
-    "FILE_STORE_BUCKETS": "imgs:mlapp-imgs,configs:mlapp-configs,logs:mlapp-logs"
+    "VUE_APP_DEPLOYMENT": "default"
   };
 })();
